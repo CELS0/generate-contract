@@ -5,7 +5,7 @@ const Container = styled.div`
   height: 100vh;
   width: 100vw;
   font-family: sans-serif;
-  background-image: url("../assets/lotes.png");
+  background-image: url("https://uploadnodejs.s3.amazonaws.com/lotes.png");
   background-repeat: no-repeat;
   justify-content: center;
   align-items: center;
