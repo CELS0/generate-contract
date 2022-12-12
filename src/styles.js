@@ -1,26 +1,39 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  display: flex;
   height: 100vh;
   width: 100vw;
   font-family: sans-serif;
   background-image: url("https://uploadnodejs.s3.amazonaws.com/lotes.png");
   background-repeat: no-repeat;
-  justify-content: center;
+  display: flex;
+  justify-content: right;
   align-items: center;
+  
+  background-size: cover;
+  margin: auto;
+  
+  @media (max-width: 720px) {
+    justify-content: center;
+  }
+
+
 `;
 
 const Main = styled.div`
-  height: 60vh;
-  width: 20vw;
+  height: 600px;
+  width: 350px;
   background-color: rgba(40,42,53,0.7);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  margin-left: 850px;
+  margin-right: 30px;
+  
+  @media (max-width: 720px) {
+    margin-right: 0px;
+  }
 `;
 
 const Input = styled.input`
