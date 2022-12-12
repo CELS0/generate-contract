@@ -29,7 +29,7 @@ const Main = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  margin-right: 30px;
+  margin-right: 120px;
   
   @media (max-width: 720px) {
     margin-right: 0px;
@@ -58,7 +58,7 @@ const Content = styled.div`
 `;
 
 const Button = styled.button`
-  width: 300px;
+  width: 316px;
   height: 40px;
   background: #fec901;
   cursor: pointer;
