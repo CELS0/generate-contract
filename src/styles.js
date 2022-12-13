@@ -9,28 +9,26 @@ const Container = styled.div`
   display: flex;
   justify-content: right;
   align-items: center;
-  
+
   background-size: cover;
   margin: auto;
-  
+
   @media (max-width: 720px) {
     justify-content: center;
   }
-
-
 `;
 
 const Main = styled.div`
-  height: 600px;
+  height: 800px;
   width: 350px;
-  background-color: rgba(40,42,53,0.7);
+  background-color: rgba(40, 42, 53, 0.7);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   margin-right: 120px;
-  
+
   @media (max-width: 720px) {
     margin-right: 0px;
   }
@@ -38,16 +36,17 @@ const Main = styled.div`
 
 const Input = styled.input`
   width: 300px;
-  height: 28px;
+  height: 18px;
   border-radius: 8px;
   border: 1px solid #ffff;
   font-size: 12px;
   padding: 0.5em 0.5em 0.5em;
 `;
 const Title = styled.h3`
-  color: #172044;
+  color: #fec901;
   align-self: flex-start;
-  font-size: 15px;
+  font-size: 12px;
+  margin-right: 86px;
 `;
 
 const Content = styled.div`
@@ -57,15 +56,23 @@ const Content = styled.div`
   flex-direction: column;
 `;
 
+const ContentRow = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+`;
+
 const Button = styled.button`
   width: 316px;
   height: 40px;
-  background: #fec901;
+  background: #cc0001;
   cursor: pointer;
   font-weight: 700;
-  border: 1px solid #fec901;
+  border: 1px solid #cc0001;
   border-radius: 8px;
+  color: #ffff;
   margin-bottom: 10px;
 `;
 
-export { Container, Main, Button, Input, Title, Content };
+export { Container, Main, Button, Input, Title, Content, ContentRow };

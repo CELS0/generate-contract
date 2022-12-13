@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { Container, Main, Button, Input, Title, Content } from "./styles.js";
+import {
+  Container,
+  Main,
+  Button,
+  Input,
+  Title,
+  Content,
+  ContentRow,
+} from "./styles.js";
 import { Document, Packer } from "docx";
 import { saveAs } from "file-saver";
 
@@ -48,24 +56,6 @@ function App() {
         },
       },
     };
-    doc.Styles.createParagraphStyle("customHeading1", "Custom Heading 1")
-      .basedOn("Heading 1")
-      .next("Normal")
-      .quickFormat()
-      .font(doc.theme.font.header.family)
-      .size(32)
-      .bold()
-      .color(doc.theme.headings.one.color)
-      .spacing({ after: 250 });
-    doc.Styles.createParagraphStyle("customHeading2", "Custom Heading 2")
-      .basedOn("Heading 2")
-      .next("Normal")
-      .quickFormat()
-      .font(doc.theme.font.header.family)
-      .size(26)
-      .bold()
-      .color(doc.theme.headings.two.color)
-      .spacing({ after: 150 });
     doc.Styles.createParagraphStyle("customTitle", "Custom Title")
       .basedOn("Title")
       .next("Normal")
@@ -75,15 +65,6 @@ function App() {
       .bold()
       .color(doc.theme.font.normal.color)
       .spacing({ after: 250 });
-    doc.Styles.createParagraphStyle("customSubtitle", "Custom Subtitle")
-      .basedOn("Subtitle")
-      .next("Normal")
-      .quickFormat()
-      .font(doc.theme.font.header.family)
-      .size(22)
-      .color(doc.theme.font.normal.color)
-      .spacing({ after: 150 });
-    setOwnerName;
     doc.Styles.createParagraphStyle("customNormal", "Custom Normal")
       .basedOn("Normal")
       .quickFormat()
@@ -149,10 +130,10 @@ function App() {
     doc
       .createParagraph(
         "Cláusula 7ª. Caso alguma das partes não cumpra o disposto nas cláusulas estabelecidas neste instrumento, responsabilizar-se-á pelo pagamento de multa equivalente a 10% do valor da venda do terreno."
-        )
+      )
       .style("customNormal");
 
-    saveDocumentToFile(doc, `${resre}.docx`);
+    saveDocumentToFile(doc, `LOTE ${lote} QUADRA ${block} CONTRATO DE COMPRA E VENDA DE TERRENO ${ownerName}.docx`);
   }
 
   return (
@@ -170,25 +151,30 @@ function App() {
           <Title>RG: </Title>
           <Input onChange={(e) => setRg(e.target.value)} />
         </Content>
-        <Content>
-          <Title>Gênero: </Title>
-          <select name="select" onChange={(e) => setGenre(e.target.value)}>
-            <option value="brasileiro">Masculino</option>
-            <option value="brasileira">Feminino</option>
-          </select>
-        </Content>
-        <Content>
-          <Title>Estado Civil: </Title>
-          <select name="select" onChange={(e) => setCivil(e.target.value)}>
-            <option value={genre === "brasileiro" ? "solteiro" : "solteira"}>
-              Solteiro
-            </option>
-            <option value={genre === "brasileiro" ? "casado" : "casada"}>
-              Casado
-            </option>
-            <option value="união estável">União Estável</option>
-          </select>
-        </Content>
+        <ContentRow>
+          <Content>
+            <Title>Gênero: </Title>
+            <select name="select" onChange={(e) => setGenre(e.target.value)}>
+              <option value="brasileiro">Masculino</option>
+              <option value="brasileira">Feminino</option>
+            </select>
+          </Content>
+          <Content>
+            <Title>Estado Civil: </Title>
+            <select
+              name="select"
+              onChange={(e) => setCivil(e.target.value)}
+            >
+              <option value={genre === "brasileiro" ? "solteiro" : "solteira"}>
+                Solteiro
+              </option>
+              <option value={genre === "brasileiro" ? "casado" : "casada"}>
+                Casado
+              </option>
+              <option value="união estável">União Estável</option>
+            </select>
+          </Content>
+        </ContentRow>
         <Content>
           <Title>Residência: </Title>
           <Input onChange={(e) => setAddress(e.target.value)} />
