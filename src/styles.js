@@ -19,7 +19,7 @@ const Container = styled.div`
 `;
 
 const Main = styled.div`
-  height: 800px;
+  height: 900px;
   width: 350px;
   background-color: rgba(40, 42, 53, 0.7);
   border-radius: 8px;
@@ -36,10 +36,11 @@ const Main = styled.div`
 
 const Input = styled.input`
   width: 300px;
-  height: 18px;
+  height: 8px;
   border-radius: 8px;
   border: 1px solid #ffff;
   font-size: 12px;
+  margin-bottom: -10px;
   padding: 0.5em 0.5em 0.5em;
 `;
 const Title = styled.h3`
@@ -65,7 +66,7 @@ const ContentRow = styled.div`
 
 const Button = styled.button`
   width: 316px;
-  height: 40px;
+  height: 30px;
   background: #cc0001;
   cursor: pointer;
   font-weight: 700;

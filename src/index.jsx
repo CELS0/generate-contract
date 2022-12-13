@@ -13,15 +13,25 @@ import { Document, Packer } from "docx";
 import { saveAs } from "file-saver";
 
 function App() {
-  const [resre, setJABSF] = useState("564654");
+  const [checked, setChecked] = useState(true);
   const [ownerName, setOwnerName] = useState("");
   const [rg, setRg] = useState("");
   const [cpf, setCpf] = useState("");
-  const [genre, setGenre] = useState("");
+  const [genre, setGenre] = useState("brasileiro");
   const [address, setAddress] = useState("");
-  const [civil, setCivil] = useState("");
+  const [civil, setCivil] = useState("brasileiro");
   const [lote, setLote] = useState("");
   const [block, setBlock] = useState("");
+  const [width, setWidth] = useState("");
+  const [size, setSize] = useState("");
+  const [frente, setFrente] = useState("");
+  const [fundo, setFundo] = useState("");
+  const [medida01, setMedida01] = useState("");
+  const [medida02, setMedida02] = useState("");
+  const [block01, setBlock01] = useState("");
+  const [block02, setBlock02] = useState("");
+  const [lote01, setLote01] = useState("");
+  const [lote02, setLote02] = useState("");
 
   function saveDocumentToFile(doc, fileName) {
     const packer = new Packer();
@@ -90,12 +100,21 @@ function App() {
         "As partes acima identificadas têm, entre si, justo e acertado o presente Contrato de Compra e Venda de Terreno a Prazo, que se regerá pelas cláusulas seguintes e pelas condições descritas no presente. "
       )
       .style("customNormal");
-
-    doc
-      .createParagraph(
-        `Cláusula 1ª. O presente contrato tem como OBJETO a venda do terreno denominado LOTE ${lote} DA QUADRA ${block}, com as seguintes medidas 10 x 30 metros, perfazendo uma área de 300 metros quadrados, situado no Loteamento Alto do Umbuzeiro, Cep: 47610-000, Cidade Sítio do Mato, no Estado da Bahia, desmembrado da Fazenda Canindé, Estrada Sítio do Mato/Traíras, Identificação CIB 7.032.701-7 de propriedade dos vendedores.`
-      )
-      .style("customNormal");
+    {
+      checked
+        ? doc
+            .createParagraph(
+              `Cláusula 1ª. O presente contrato tem como OBJETO a venda do terreno denominado LOTE ${lote} DA QUADRA ${block}, com as seguintes medidas ${width} x ${size} metros, perfazendo uma área de ${
+                width * size
+              } metros quadrados, situado no Loteamento Alto do Umbuzeiro, Cep: 47610-000, Cidade Sítio do Mato, no Estado da Bahia, desmembrado da Fazenda Canindé, Estrada Sítio do Mato/Traíras, Identificação CIB 7.032.701-7 de propriedade dos vendedores.`
+            )
+            .style("customNormal")
+        : doc
+            .createParagraph(
+              `Cláusula 1ª. O presente contrato tem como OBJETO a venda do terreno denominado LOTE ${lote} DA QUADRA ${block}, com as seguintes medidas ${frente} metros de frente, ${fundo} metros de fundo, ${medida01} metros na divisa com o lote ${lote01} da QD ${block01} e ${medida02} metros na divisa com o lote ${lote02} da QD ${block02}, situado no Loteamento Alto do Umbuzeiro, Cep: 47610-000, Cidade Sítio do Mato, no Estado da Bahia, desmembrado da Fazenda Canindé, Estrada Sítio do Mato/Traíras, Identificação CIB 7.032.701-7 de propriedade dos vendedores.`
+            )
+            .style("customNormal");
+    }
 
     doc
       .createParagraph(
@@ -133,7 +152,10 @@ function App() {
       )
       .style("customNormal");
 
-    saveDocumentToFile(doc, `LOTE ${lote} QUADRA ${block} CONTRATO DE COMPRA E VENDA DE TERRENO ${ownerName}.docx`);
+    saveDocumentToFile(
+      doc,
+      `LOTE ${lote} QUADRA ${block} CONTRATO DE COMPRA E VENDA DE TERRENO ${ownerName}.docx`
+    );
   }
 
   return (
@@ -161,10 +183,7 @@ function App() {
           </Content>
           <Content>
             <Title>Estado Civil: </Title>
-            <select
-              name="select"
-              onChange={(e) => setCivil(e.target.value)}
-            >
+            <select name="select" onChange={(e) => setCivil(e.target.value)}>
               <option value={genre === "brasileiro" ? "solteiro" : "solteira"}>
                 Solteiro
               </option>
@@ -187,7 +206,64 @@ function App() {
           <Title>Quadra:</Title>
           <Input onChange={(e) => setBlock(e.target.value)} />
         </Content>
-        <Button onClick={generateWordDocument}>GERAR CONTRATO {genre}</Button>
+        <Content>
+          <Title>Medidas corretas: </Title>
+          <Input
+            type="checkbox"
+            checked={checked}
+            onChange={() => {
+              setChecked(!checked);
+            }}
+          />
+        </Content>
+        {checked ? (
+          <>
+            <Content>
+              <Title>Largura:</Title>
+              <Input onChange={(e) => setWidth(e.target.value)} />
+            </Content>
+            <Content>
+              <Title>Comprimento:</Title>
+              <Input onChange={(e) => setSize(e.target.value)} />
+            </Content>
+          </>
+        ) : (
+          <>
+            <Content>
+              <Title>Frente:</Title>
+              <Input onChange={(e) => setFrente(e.target.value)} />
+            </Content>
+            <Content>
+              <Title>Fundo:</Title>
+              <Input onChange={(e) => setFundo(e.target.value)} />
+            </Content>
+            <Content>
+              <Title>Divisa 01:</Title>
+              <Input onChange={(e) => setMedida01(e.target.value)} />
+            </Content>
+            <Content>
+              <Title>Quandra lado 01:</Title>
+              <Input onChange={(e) => setBlock01(e.target.value)} />
+            </Content>
+            <Content>
+              <Title>Lote 01:</Title>
+              <Input onChange={(e) => setLote01(e.target.value)} />
+            </Content>
+            <Content>
+              <Title>Divisa 02:</Title>
+              <Input onChange={(e) => setMedida02(e.target.value)} />
+            </Content>
+            <Content>
+              <Title>Quandra lado 02:</Title>
+              <Input onChange={(e) => setBlock02(e.target.value)} />
+            </Content>
+            <Content>
+              <Title>Lote 02:</Title>
+              <Input onChange={(e) => setLote02(e.target.value)} />
+            </Content>
+          </>
+        )}
+        <Button onClick={generateWordDocument}>GERAR CONTRATO</Button>
       </Main>
     </Container>
   );
