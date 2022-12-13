@@ -8,9 +8,12 @@ import {
   Title,
   Content,
   ContentRow,
+  TitleMedida,
+  TitleGenre,
 } from "./styles.js";
 import { Document, Packer } from "docx";
 import { saveAs } from "file-saver";
+import { BiArrowToRight, BiArrowToLeft } from "react-icons/bi";
 
 function App() {
   const [checked, setChecked] = useState(true);
@@ -32,6 +35,22 @@ function App() {
   const [block02, setBlock02] = useState("");
   const [lote01, setLote01] = useState("");
   const [lote02, setLote02] = useState("");
+  const [step, setStep] = useState(1);
+  const [price, setPrice] = useState("");
+  const [priceDescriptions, setPriceDescriptions] = useState("");
+  const [installments, setInstallmentse] = useState("");
+  const [priceInstallments, setPriceInstallmentse] = useState("");
+  const [installmentsDescriptions, setInstallmentsDescriptions] = useState("");
+  const [priceStart, setPriceStart] = useState("");
+  const [priceStartDescriptions, setPriceStartDescriptions] = useState("");
+  const [date, setDate] = useState("");
+  const [datePrice, setDatePrice] = useState("");
+  const [datePriceDescriptions, setDatePriceDescriptions] = useState("");
+
+  const [
+    installmentsDescriptionsRestante,
+    setInstallmentsDescriptionsRestante,
+  ] = useState("");
 
   function saveDocumentToFile(doc, fileName) {
     const packer = new Packer();
@@ -49,20 +68,20 @@ function App() {
     doc.theme = {
       font: {
         normal: {
-          family: "Calibri",
-          color: "303856",
+          family: "Times New Roman Bold",
+          color: "#0000",
         },
-        header: { family: "Calibri Light" },
+        header: { family: "Times New Roman Bold" },
       },
       title: {
-        color: "4ABDAC",
+        color: "#0000",
       },
       headings: {
         one: {
-          color: "FC4A1A",
+          color: "#0000",
         },
         two: {
-          color: "F7B733",
+          color: "#0000",
         },
       },
     };
@@ -71,18 +90,29 @@ function App() {
       .next("Normal")
       .quickFormat()
       .font(doc.theme.font.header.family)
-      .size(56)
+      .size(24)
       .bold()
       .color(doc.theme.font.normal.color)
-      .spacing({ after: 250 });
+      .spacing({ after: 250, before: 250 });
     doc.Styles.createParagraphStyle("customNormal", "Custom Normal")
       .basedOn("Normal")
       .quickFormat()
+      .justified()
       .font(doc.theme.font.normal.family)
-      .size(20)
+      .size(24)
       .color(doc.theme.font.normal.color)
       .spacing({ after: 150 });
-    doc.createParagraph("Title").style("customTitle");
+    doc.Styles.createParagraphStyle("customNormalBold", "Custom Normal Bold")
+      .basedOn("Normal")
+      .quickFormat()
+      .justified()
+      .bold()
+      .font(doc.theme.font.normal.family)
+      .size(24)
+      .color(doc.theme.font.normal.color);
+    doc
+      .createParagraph("CONTRATO DE COMPRA E VENDA DE TERRENO A PRAZO")
+      .style("customTitle").center();
     doc
       .createParagraph(
         "VENDEDORES: Gedeon Belmiro Dourado Filho, brasileiro, casado, maior, bombeiro militar, RG: 2148661 SSP/DF, CPF: 001.403.975-31 e sua esposa, a Sra. Maiara Raissa Ribeiro Nunes Dourado, RG: 1305482786 SSP/BA, CPF: 029.959.355-07, brasileira, casada, maior, bombeira militar, residentes e domiciliados na Rua 7 de setembro, n° 10, Sitio do Mato - Bahia; "
@@ -152,6 +182,75 @@ function App() {
       )
       .style("customNormal");
 
+    doc
+      .createParagraph(
+        `Cláusula 8ª. Por força deste {instrumento}, o COMPRADOR pagará aos VENDEDORES
+        a quantia de R$ ${price},00 (${priceDescriptions}), dividida em ${installments} (${installmentsDescriptions}) parcelas, sendo a primeira, como entrada, no valor de R$ ${priceStart}
+        (${priceStartDescriptions}) pago dia ${date}, e o restante em ${
+          date - 1
+        } (${installmentsDescriptionsRestante})parcelas no valor de R$ ${priceInstallments},00 (DUZENTOS REAIS), a serem pagas todo dia ${datePrice} (${datePriceDescriptions})
+        de cada mês até a quitação de todas as prestações.`
+      )
+      .style("customNormalBold");
+
+    doc
+      .createParagraph(
+        "Cláusula 9ª. O pagamento deverá ser feito pelo COMPRADOR, ou por procurador por este constituído, na residência dos VENDEDORES, situada na Rua 7 de setembro, n° 10, Sitio do Mato - Bahia, ou em conta corrente ou PIX indicada pelos VENDEDORES."
+      )
+      .style("customNormal");
+
+    doc
+      .createParagraph(
+        "Cláusula 10ª. O presente contrato será rescindido 60 (sessenta) dias após o COMPRADOR deixar de pagar qualquer das parcelas pactuadas neste instrumento, na data do vencimento, perdendo este, desde já, a posse do terreno, não tendo direito a ser ressarcido pelas benfeitorias voluptuárias."
+      )
+      .style("customNormal");
+    doc
+      .createParagraph(
+        "Cláusula 11ª. Em caso de desistência imotivada do COMPRADOR, em qualquer fase de vigência do presente contrato, os VENDEDORES ficam autorizados a reter 30% (trinta por cento) do valor atualizado dos valores efetivamente pagos."
+      )
+      .style("customNormal");
+    doc
+      .createParagraph(
+        "Cláusula 12ª. O presente contrato passa a valer a partir da assinatura pelas partes, obrigando-se a ele os herdeiros ou sucessores das mesmas."
+      )
+      .style("customNormal");
+    doc
+      .createParagraph(
+        "Cláusula 13ª. Para dirimir quaisquer controvérsias oriundas do CONTRATO, as partes elegem o foro da comarca de Bom Jesus da Lapa-Bahia;"
+      )
+      .style("customNormal");
+    doc
+      .createParagraph(
+        "Por estarem assim justos e contratados, firmam o presente instrumento, em duas vias de igual teor. Dado e passado na cidade de Sítio do Mato, Estado da Bahia, aos 29/07/2022 (vinte enove de julho de 2022)."
+      )
+      .style("customNormal");
+
+    doc.createParagraph().style("customNormal");
+
+    doc.createParagraph("VENDEDORES:").style("customNormal");
+
+    doc
+      .createParagraph(
+        "GEDEON BELMIRO DOURADO FILHO: _____________________________________"
+      )
+      .style("customNormal");
+    doc
+      .createParagraph(
+        "MAIARA RAISSA RIBEIRO NUNES DOURADO: ______________________________"
+      )
+      .style("customNormal");
+
+    doc.createParagraph().style("customNormal");
+
+    doc
+      .createParagraph(`COMPRADOR: ${ownerName.toUpperCase()}`)
+      .style("customNormal");
+    doc
+      .createParagraph(
+        "_________________________________________________________________________"
+      )
+      .style("customNormal");
+
     saveDocumentToFile(
       doc,
       `LOTE ${lote} QUADRA ${block} CONTRATO DE COMPRA E VENDA DE TERRENO ${ownerName}.docx`
@@ -161,109 +260,207 @@ function App() {
   return (
     <Container>
       <Main>
-        <Content>
-          <Title>Nome do Proprietário:</Title>
-          <Input onChange={(e) => setOwnerName(e.target.value)} />
-        </Content>
-        <Content>
-          <Title>CPF:</Title>
-          <Input onChange={(e) => setCpf(e.target.value)} />
-        </Content>
-        <Content>
-          <Title>RG: </Title>
-          <Input onChange={(e) => setRg(e.target.value)} />
-        </Content>
-        <ContentRow>
-          <Content>
-            <Title>Gênero: </Title>
-            <select name="select" onChange={(e) => setGenre(e.target.value)}>
-              <option value="brasileiro">Masculino</option>
-              <option value="brasileira">Feminino</option>
-            </select>
-          </Content>
-          <Content>
-            <Title>Estado Civil: </Title>
-            <select name="select" onChange={(e) => setCivil(e.target.value)}>
-              <option value={genre === "brasileiro" ? "solteiro" : "solteira"}>
-                Solteiro
-              </option>
-              <option value={genre === "brasileiro" ? "casado" : "casada"}>
-                Casado
-              </option>
-              <option value="união estável">União Estável</option>
-            </select>
-          </Content>
-        </ContentRow>
-        <Content>
-          <Title>Residência: </Title>
-          <Input onChange={(e) => setAddress(e.target.value)} />
-        </Content>
-        <Content>
-          <Title>Lote:</Title>
-          <Input onChange={(e) => setLote(e.target.value)} />
-        </Content>
-        <Content>
-          <Title>Quadra:</Title>
-          <Input onChange={(e) => setBlock(e.target.value)} />
-        </Content>
-        <Content>
-          <Title>Medidas corretas: </Title>
-          <Input
-            type="checkbox"
-            checked={checked}
-            onChange={() => {
-              setChecked(!checked);
-            }}
-          />
-        </Content>
-        {checked ? (
+        {step === 1 && (
           <>
             <Content>
-              <Title>Largura:</Title>
-              <Input onChange={(e) => setWidth(e.target.value)} />
+              <Title>Nome do Proprietário:</Title>
+              <Input onChange={(e) => setOwnerName(e.target.value)} />
             </Content>
             <Content>
-              <Title>Comprimento:</Title>
-              <Input onChange={(e) => setSize(e.target.value)} />
-            </Content>
-          </>
-        ) : (
-          <>
-            <Content>
-              <Title>Frente:</Title>
-              <Input onChange={(e) => setFrente(e.target.value)} />
+              <Title>CPF:</Title>
+              <Input onChange={(e) => setCpf(e.target.value)} />
             </Content>
             <Content>
-              <Title>Fundo:</Title>
-              <Input onChange={(e) => setFundo(e.target.value)} />
+              <Title>RG: </Title>
+              <Input onChange={(e) => setRg(e.target.value)} />
+            </Content>
+            <ContentRow>
+              <Content>
+                <TitleGenre>Gênero: </TitleGenre>
+                <select
+                  name="select"
+                  onChange={(e) => setGenre(e.target.value)}
+                >
+                  <option value="brasileiro">Masculino</option>
+                  <option value="brasileira">Feminino</option>
+                </select>
+              </Content>
+              <Content>
+                <Title>Estado Civil: </Title>
+                <select
+                  name="select"
+                  onChange={(e) => setCivil(e.target.value)}
+                >
+                  <option
+                    value={genre === "brasileiro" ? "solteiro" : "solteira"}
+                  >
+                    Solteiro
+                  </option>
+                  <option value={genre === "brasileiro" ? "casado" : "casada"}>
+                    Casado
+                  </option>
+                  <option value="união estável">União Estável</option>
+                </select>
+              </Content>
+            </ContentRow>
+            <Content>
+              <Title>Residência: </Title>
+              <Input onChange={(e) => setAddress(e.target.value)} />
             </Content>
             <Content>
-              <Title>Divisa 01:</Title>
-              <Input onChange={(e) => setMedida01(e.target.value)} />
+              <Title>Lote:</Title>
+              <Input onChange={(e) => setLote(e.target.value)} />
             </Content>
             <Content>
-              <Title>Quandra lado 01:</Title>
-              <Input onChange={(e) => setBlock01(e.target.value)} />
-            </Content>
-            <Content>
-              <Title>Lote 01:</Title>
-              <Input onChange={(e) => setLote01(e.target.value)} />
-            </Content>
-            <Content>
-              <Title>Divisa 02:</Title>
-              <Input onChange={(e) => setMedida02(e.target.value)} />
-            </Content>
-            <Content>
-              <Title>Quandra lado 02:</Title>
-              <Input onChange={(e) => setBlock02(e.target.value)} />
-            </Content>
-            <Content>
-              <Title>Lote 02:</Title>
-              <Input onChange={(e) => setLote02(e.target.value)} />
+              <Title>Quadra:</Title>
+              <Input onChange={(e) => setBlock(e.target.value)} />
             </Content>
           </>
         )}
-        <Button onClick={generateWordDocument}>GERAR CONTRATO</Button>
+
+        {step === 2 && (
+          <>
+            <ContentRow>
+              <TitleMedida>Medidas corretas: </TitleMedida>
+              <Input
+                type="checkbox"
+                checked={checked}
+                onChange={() => {
+                  setChecked(!checked);
+                }}
+              />
+            </ContentRow>
+            <>
+              {checked ? (
+                <>
+                  <Content>
+                    <Title>Largura:</Title>
+                    <Input onChange={(e) => setWidth(e.target.value)} />
+                  </Content>
+                  <Content>
+                    <Title>Comprimento:</Title>
+                    <Input onChange={(e) => setSize(e.target.value)} />
+                  </Content>
+                </>
+              ) : (
+                <>
+                  <Content>
+                    <Title>Frente:</Title>
+                    <Input onChange={(e) => setFrente(e.target.value)} />
+                  </Content>
+                  <Content>
+                    <Title>Fundo:</Title>
+                    <Input onChange={(e) => setFundo(e.target.value)} />
+                  </Content>
+                  <Content>
+                    <Title>Divisa 01:</Title>
+                    <Input onChange={(e) => setMedida01(e.target.value)} />
+                  </Content>
+                  <Content>
+                    <Title>Quandra lado 01:</Title>
+                    <Input onChange={(e) => setBlock01(e.target.value)} />
+                  </Content>
+                  <Content>
+                    <Title>Lote 01:</Title>
+                    <Input onChange={(e) => setLote01(e.target.value)} />
+                  </Content>
+                  <Content>
+                    <Title>Divisa 02:</Title>
+                    <Input onChange={(e) => setMedida02(e.target.value)} />
+                  </Content>
+                  <Content>
+                    <Title>Quandra lado 02:</Title>
+                    <Input onChange={(e) => setBlock02(e.target.value)} />
+                  </Content>
+                  <Content>
+                    <Title>Lote 02:</Title>
+                    <Input onChange={(e) => setLote02(e.target.value)} />
+                  </Content>
+                </>
+              )}
+            </>
+          </>
+        )}
+
+        {step === 3 && (
+          <>
+            <Content>
+              <Title>Preço:</Title>
+              <Input onChange={(e) => setPrice(e.target.value)} />
+            </Content>
+            <Content>
+              <Title>Preço escrito:</Title>
+              <Input onChange={(e) => setPriceDescriptions(e.target.value)} />
+            </Content>
+            <Content>
+              <Title>Valor das parcelas: </Title>
+              <Input onChange={(e) => setPriceInstallmentse(e.target.value)} />
+            </Content>
+            <Content>
+              <Title>Parcelas: </Title>
+              <Input onChange={(e) => setInstallmentse(e.target.value)} />
+            </Content>
+            <Content>
+              <Title>Parcelas escrita: </Title>
+              <Input
+                onChange={(e) => setInstallmentsDescriptions(e.target.value)}
+              />
+            </Content>
+            <Content>
+              <Title>Valor de entrada: </Title>
+              <Input onChange={(e) => setPriceStart(e.target.value)} />
+            </Content>
+            <Content>
+              <Title>Valor de entrada escrito: </Title>
+              <Input
+                onChange={(e) => setPriceStartDescriptions(e.target.value)}
+              />
+            </Content>
+            <Content>
+              <Title>Data:</Title>
+              <Input onChange={(e) => setDate(e.target.value)} />
+            </Content>
+            <Content>
+              <Title>Número de parcelas restante escrita:</Title>
+              <Input
+                onChange={(e) =>
+                  setInstallmentsDescriptionsRestante(e.target.value)
+                }
+              />
+            </Content>
+            <Content>
+              <Title>Dia dos pagametos:</Title>
+              <Input onChange={(e) => setDatePrice(e.target.value)} />
+            </Content>
+            <Content>
+              <Title>Dia dos pagametos escrito:</Title>
+              <Input
+                onChange={(e) => setDatePriceDescriptions(e.target.value)}
+              />
+            </Content>
+            <Button onClick={generateWordDocument}>GERAR CONTRATO</Button>
+          </>
+        )}
+        <ContentRow>
+          {step > 1 && (
+            <BiArrowToLeft
+              color={"#ffff"}
+              size={28}
+              onClick={() => {
+                setStep(step - 1);
+              }}
+            />
+          )}
+          {step < 3 && (
+            <BiArrowToRight
+              color={"#ffff"}
+              size={28}
+              onClick={() => {
+                setStep(step + 1);
+              }}
+            />
+          )}
+        </ContentRow>
       </Main>
     </Container>
   );

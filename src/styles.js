@@ -36,7 +36,7 @@ const Main = styled.div`
 
 const Input = styled.input`
   width: 300px;
-  height: 8px;
+  height: 18px;
   border-radius: 8px;
   border: 1px solid #ffff;
   font-size: 12px;
@@ -46,8 +46,22 @@ const Input = styled.input`
 const Title = styled.h3`
   color: #fec901;
   align-self: flex-start;
-  font-size: 12px;
-  margin-right: 86px;
+  font-size: 14px;
+`;
+const TitleGenre = styled.h3`
+  color: #fec901;
+  align-self: flex-start;
+  font-size: 14px;
+  margin-right: 140px;
+`;
+
+const TitleMedida = styled.h3`
+  color: #fec901;
+  /* align-self: flex-start; */
+  font-size: 14px;
+  margin-right: -80px;
+  margin-top: 30px;
+  margin-left: 20px;
 `;
 
 const Content = styled.div`
@@ -73,7 +87,17 @@ const Button = styled.button`
   border: 1px solid #cc0001;
   border-radius: 8px;
   color: #ffff;
-  margin-bottom: 10px;
+  margin-top: 20px;
 `;
 
-export { Container, Main, Button, Input, Title, Content, ContentRow };
+export {
+  Container,
+  Main,
+  Button,
+  Input,
+  Title,
+  Content,
+  ContentRow,
+  TitleMedida,
+  TitleGenre,
+};
