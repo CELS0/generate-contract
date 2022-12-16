@@ -112,7 +112,8 @@ function App() {
       .color(doc.theme.font.normal.color);
     doc
       .createParagraph("CONTRATO DE COMPRA E VENDA DE TERRENO A PRAZO")
-      .style("customTitle").center();
+      .style("customTitle")
+      .center();
     doc
       .createParagraph(
         "VENDEDORES: Gedeon Belmiro Dourado Filho, brasileiro, casado, maior, bombeiro militar, RG: 2148661 SSP/DF, CPF: 001.403.975-31 e sua esposa, a Sra. Maiara Raissa Ribeiro Nunes Dourado, RG: 1305482786 SSP/BA, CPF: 029.959.355-07, brasileira, casada, maior, bombeira militar, residentes e domiciliados na Rua 7 de setembro, n° 10, Sitio do Mato - Bahia; "
@@ -187,7 +188,7 @@ function App() {
         `Cláusula 8ª. Por força deste {instrumento}, o COMPRADOR pagará aos VENDEDORES
         a quantia de R$ ${price},00 (${priceDescriptions}), dividida em ${installments} (${installmentsDescriptions}) parcelas, sendo a primeira, como entrada, no valor de R$ ${priceStart}
         (${priceStartDescriptions}) pago dia ${date}, e o restante em ${
-          date - 1
+          installments - 1
         } (${installmentsDescriptionsRestante})parcelas no valor de R$ ${priceInstallments},00 (DUZENTOS REAIS), a serem pagas todo dia ${datePrice} (${datePriceDescriptions})
         de cada mês até a quitação de todas as prestações.`
       )
@@ -264,21 +265,25 @@ function App() {
           <>
             <Content>
               <Title>Nome do Proprietário:</Title>
-              <Input onChange={(e) => setOwnerName(e.target.value)} />
+              <Input
+                value={ownerName}
+                onChange={(e) => setOwnerName(e.target.value)}
+              />
             </Content>
             <Content>
               <Title>CPF:</Title>
-              <Input onChange={(e) => setCpf(e.target.value)} />
+              <Input value={cpf} onChange={(e) => setCpf(e.target.value)} />
             </Content>
             <Content>
               <Title>RG: </Title>
-              <Input onChange={(e) => setRg(e.target.value)} />
+              <Input value={rg} onChange={(e) => setRg(e.target.value)} />
             </Content>
             <ContentRow>
               <Content>
                 <TitleGenre>Gênero: </TitleGenre>
                 <select
                   name="select"
+                  value={genre}
                   onChange={(e) => setGenre(e.target.value)}
                 >
                   <option value="brasileiro">Masculino</option>
@@ -288,6 +293,7 @@ function App() {
               <Content>
                 <Title>Estado Civil: </Title>
                 <select
+                  value={civil}
                   name="select"
                   onChange={(e) => setCivil(e.target.value)}
                 >
@@ -305,15 +311,18 @@ function App() {
             </ContentRow>
             <Content>
               <Title>Residência: </Title>
-              <Input onChange={(e) => setAddress(e.target.value)} />
+              <Input
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
             </Content>
             <Content>
               <Title>Lote:</Title>
-              <Input onChange={(e) => setLote(e.target.value)} />
+              <Input value={lote} onChange={(e) => setLote(e.target.value)} />
             </Content>
             <Content>
               <Title>Quadra:</Title>
-              <Input onChange={(e) => setBlock(e.target.value)} />
+              <Input value={block} onChange={(e) => setBlock(e.target.value)} />
             </Content>
           </>
         )}
@@ -325,6 +334,7 @@ function App() {
               <Input
                 type="checkbox"
                 checked={checked}
+                value={checked}
                 onChange={() => {
                   setChecked(!checked);
                 }}
@@ -335,46 +345,76 @@ function App() {
                 <>
                   <Content>
                     <Title>Largura:</Title>
-                    <Input onChange={(e) => setWidth(e.target.value)} />
+                    <Input
+                      value={width}
+                      onChange={(e) => setWidth(e.target.value)}
+                    />
                   </Content>
                   <Content>
                     <Title>Comprimento:</Title>
-                    <Input onChange={(e) => setSize(e.target.value)} />
+                    <Input
+                      value={size}
+                      onChange={(e) => setSize(e.target.value)}
+                    />
                   </Content>
                 </>
               ) : (
                 <>
                   <Content>
                     <Title>Frente:</Title>
-                    <Input onChange={(e) => setFrente(e.target.value)} />
+                    <Input
+                      value={frente}
+                      onChange={(e) => setFrente(e.target.value)}
+                    />
                   </Content>
                   <Content>
                     <Title>Fundo:</Title>
-                    <Input onChange={(e) => setFundo(e.target.value)} />
+                    <Input
+                      value={fundo}
+                      onChange={(e) => setFundo(e.target.value)}
+                    />
                   </Content>
                   <Content>
                     <Title>Divisa 01:</Title>
-                    <Input onChange={(e) => setMedida01(e.target.value)} />
+                    <Input
+                      value={medida01}
+                      onChange={(e) => setMedida01(e.target.value)}
+                    />
                   </Content>
                   <Content>
                     <Title>Quandra lado 01:</Title>
-                    <Input onChange={(e) => setBlock01(e.target.value)} />
+                    <Input
+                      value={block01}
+                      onChange={(e) => setBlock01(e.target.value)}
+                    />
                   </Content>
                   <Content>
                     <Title>Lote 01:</Title>
-                    <Input onChange={(e) => setLote01(e.target.value)} />
+                    <Input
+                      value={lote01}
+                      onChange={(e) => setLote01(e.target.value)}
+                    />
                   </Content>
                   <Content>
                     <Title>Divisa 02:</Title>
-                    <Input onChange={(e) => setMedida02(e.target.value)} />
+                    <Input
+                      value={medida02}
+                      onChange={(e) => setMedida02(e.target.value)}
+                    />
                   </Content>
                   <Content>
                     <Title>Quandra lado 02:</Title>
-                    <Input onChange={(e) => setBlock02(e.target.value)} />
+                    <Input
+                      value={block02}
+                      onChange={(e) => setBlock02(e.target.value)}
+                    />
                   </Content>
                   <Content>
                     <Title>Lote 02:</Title>
-                    <Input onChange={(e) => setLote02(e.target.value)} />
+                    <Input
+                      value={lote02}
+                      onChange={(e) => setLote02(e.target.value)}
+                    />
                   </Content>
                 </>
               )}
@@ -386,43 +426,64 @@ function App() {
           <>
             <Content>
               <Title>Preço:</Title>
-              <Input onChange={(e) => setPrice(e.target.value)} />
+              <Input
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
             </Content>
             <Content>
               <Title>Preço escrito:</Title>
-              <Input onChange={(e) => setPriceDescriptions(e.target.value)} />
+              <Input
+                value={priceDescriptions}
+                onChange={(e) => setPriceDescriptions(e.target.value)}
+              />
             </Content>
             <Content>
               <Title>Valor das parcelas: </Title>
-              <Input onChange={(e) => setPriceInstallmentse(e.target.value)} />
+              <Input
+                value={priceInstallments}
+                onChange={(e) => setPriceInstallmentse(e.target.value)}
+              />
             </Content>
             <Content>
               <Title>Parcelas: </Title>
-              <Input onChange={(e) => setInstallmentse(e.target.value)} />
+              <Input
+                value={installments}
+                onChange={(e) => setInstallmentse(e.target.value)}
+              />
             </Content>
             <Content>
               <Title>Parcelas escrita: </Title>
               <Input
+                value={installmentsDescriptions}
                 onChange={(e) => setInstallmentsDescriptions(e.target.value)}
               />
             </Content>
             <Content>
               <Title>Valor de entrada: </Title>
-              <Input onChange={(e) => setPriceStart(e.target.value)} />
+              <Input
+                value={priceStart}
+                onChange={(e) => setPriceStart(e.target.value)}
+              />
             </Content>
             <Content>
               <Title>Valor de entrada escrito: </Title>
               <Input
+                value={priceStartDescriptions}
                 onChange={(e) => setPriceStartDescriptions(e.target.value)}
               />
             </Content>
             <Content>
               <Title>Data:</Title>
-              <Input onChange={(e) => setDate(e.target.value)} />
+              <Input
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
             </Content>
             <Content>
               <Title>Número de parcelas restante escrita:</Title>
               <Input
+                value={installmentsDescriptionsRestante}
                 onChange={(e) =>
                   setInstallmentsDescriptionsRestante(e.target.value)
                 }
@@ -430,11 +491,12 @@ function App() {
             </Content>
             <Content>
               <Title>Dia dos pagametos:</Title>
-              <Input onChange={(e) => setDatePrice(e.target.value)} />
+              <Input  value={datePrice} onChange={(e) => setDatePrice(e.target.value)} />
             </Content>
             <Content>
               <Title>Dia dos pagametos escrito:</Title>
               <Input
+              value={datePriceDescriptions}
                 onChange={(e) => setDatePriceDescriptions(e.target.value)}
               />
             </Content>
